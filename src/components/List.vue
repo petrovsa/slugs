@@ -2,11 +2,12 @@
   <div>
     filter: <input type="text" v-model="filter" />
     <hr />
-    <Ul>
+    <ul>
       <li v-for="item in filteredItems" :key="item.id">
-        <MyUser :item="item"></MyUser>
+        <component :is="itemComponent" :item="item"></component>
+        <slot name="item" :item="item"> </slot>
       </li>
-    </Ul>
+    </ul>
   </div>
 </template>
 
@@ -21,6 +22,10 @@ export default {
     },
     fields: {
       type: Array,
+      required: true,
+    },
+    itemComponent: {
+      type: Object,
       required: true,
     },
   },

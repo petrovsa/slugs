@@ -1,15 +1,27 @@
 <template>
-  <List :items="users" :fields="['username', 'name']" />
+  <div>
+    <List :items="users" :fields="['username', 'name']">
+      <template #item="{ item: user }">
+        {{ user.name }} {{ user.username }}
+      </template>
+    </List>
+    <List :items="todos" :fields="['title']">
+      <template #item="{ item: todo }">
+        <MyTodo :item="todo"></MyTodo>
+      </template>
+    </List>
+  </div>
 </template>
 
 <script>
 import { loadTodos, loadUsers } from "./api.js";
 import List from "./components/List.vue";
-
+import MyTodo from "./components/MyTodo.vue";
 export default {
   name: "App",
   components: {
     List,
+    MyTodo,
   },
   data() {
     return {
