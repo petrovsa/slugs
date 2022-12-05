@@ -1,19 +1,31 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <List :items="users" :fields="['username', 'name']" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { loadTodos, loadUsers } from "./api.js";
+import List from "./components/List.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    List,
+  },
+  data() {
+    return {
+      users: [],
+      todos: [],
+    };
+  },
+  mounted() {
+    loadUsers().then((users) => {
+      this.users = users;
+    });
+    loadTodos().then((todos) => {
+      this.todos = todos;
+    });
+  },
+};
 </script>
 
 <style>
